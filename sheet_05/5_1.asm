@@ -1,7 +1,7 @@
 	.text
-	addiu $4,$0,30	# initalisiere r4/$a0 mit 30
-	addiu $5,$0,25	# initalisiere r5/$a1 mit 25
-	addu $2,$0,$5	# initalisiere r2/$v0 mit Wert aus r5 = 25 (gemeinsamer Teiler)
+	addiu $4,$0,30	# Initalisiere r4/$a0 mit 30
+	addiu $5,$0,25	# Initalisiere r5/$a1 mit 25
+	addu $2,$0,$5	# Initalisiere r2/$v0 mit Wert aus r5 = 25 (gemeinsamer Teiler)
 	
 	beq $4,$0,endless_loop	# Falls r4 = 0 beende den Algorithmus
 
@@ -30,4 +30,28 @@ endless_loop:
 	j endless_loop	# Führt eine endlosschleife aus wenn der Algorithmus beendet ist 
 	
 	
-	
+# a)
+
+# (30,25)
+# addiu $4,$0,30	# Initalisiere r4/$a0 mit 30
+# addiu $5,$0,25	# Initalisiere r5/$a1 mit 25
+
+# (25,35)
+# addiu $4,$0,25	# Initalisiere r4/$a0 mit 25
+# addiu $5,$0,35	# Initalisiere r5/$a1 mit 35
+
+# (210,28)
+# addiu $4,$0,210	# Initalisiere r4/$a0 mit 210
+# addiu $5,$0,28	# Initalisiere r5/$a1 mit 28
+
+# (49,42)
+# addiu $4,$0,49	# Initalisiere r4/$a0 mit 49
+# addiu $5,$0,42	# Initalisiere r5/$a1 mit 42
+
+# (17,3)
+# addiu $4,$0,17	# Initalisiere r4/$a0 mit 17
+# addiu $5,$0,3		# Initalisiere r5/$a1 mit 3
+
+# (17,51)
+# addiu $4,$0,17	# Initalisiere r4/$a0 mit 17
+# addiu $5,$0,51	# Initalisiere r5/$a1 mit 51
