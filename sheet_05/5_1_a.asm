@@ -2,10 +2,9 @@
 	addiu $4,$0,30	# Initalisiere r4/$a0 mit 30
 	addiu $5,$0,25	# Initalisiere r5/$a1 mit 25
 	addu $2,$0,$5	# Initalisiere r2/$v0 mit Wert aus r5 = 25 (gemeinsamer Teiler)
-	
-	beq $4,$0,endless_loop	# Falls r4 = 0 beende den Algorithmus
 
-main:
+euclid:
+	beq $4,$0,endless_loop	# Falls r4 = 0 beende den Algorithmus
 	beq $5,$0,set_ggT
 	
 	sltu $t0,$5,$4	   # Falls r5 < r4 speichere 1 in t0, falls nicht 0
@@ -16,12 +15,12 @@ false:
 	# Falls r4 !< r5:
 	# Entspricht else { ... }
 	subu $5,$5,$4
-	j main
+	j euclid
 
 # Entspricht if(r4 < r5) { ... }
 true:
 	subu $4,$4,$5
-	j main
+	j euclid
 
 set_ggT:
 	addu $2,$0,$4	# Falls r5 = 0 muss der ggT der Wert von r4 sein
