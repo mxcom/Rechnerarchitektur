@@ -8,20 +8,20 @@
 main:
 	beq $5,$0,set_ggT
 	
-	# Falls r4 < r5:
 	slt $t0,$5,$4	   # Falls r5 < r4 speichere 1 in t0, falls nicht 0
 	bne $t0,$zero,true # Falls r5 !< r4 wahr ist springe zu true (Also r4 < r5 gilt)
 
+# Entspricht else { ... } (r4 !< r5)
 false:
 	# Falls r4 !< r5:
 	# Entspricht else { ... }
 	subu $5,$5,$4
-	j marke
+	j main
 
-# Entspricht demif(r4 < r5) { ... }
+# Entspricht if(r4 < r5) { ... }
 true:
 	subu $4,$4,$5
-	j marke
+	j main
 
 set_ggT:
 	addu $2,$0,$4	# Falls r5 = 0 muss der ggT der Wert von r4 sein
