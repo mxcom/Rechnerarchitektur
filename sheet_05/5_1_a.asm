@@ -3,8 +3,9 @@
 	addiu $5,$0,25	# Initalisiere r5/$a1 mit 25
 	addu $2,$0,$5	# Initalisiere r2/$v0 mit Wert aus r5 = 25 (gemeinsamer Teiler)
 
-euclid:
 	beq $4,$0,endless_loop	# Falls r4 = 0 beende den Algorithmus
+
+euclid:
 	beq $5,$0,set_ggT
 	
 	sltu $t0,$5,$4	   # Falls r5 < r4 speichere 1 in t0, falls nicht 0
