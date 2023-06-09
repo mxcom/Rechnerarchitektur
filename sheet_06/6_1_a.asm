@@ -13,7 +13,7 @@ str3:	.space 10
 	
 	j end_prog
 
-# Routine: Großbuchstaben -> Kleinbuchstaben	
+# Routine: Großbuchstaben -> Kleinbuchstaben
 strtolower:
 	li $t0, 'A'
 	li $t1, 'Z'
@@ -21,7 +21,7 @@ strtolower:
 stl_loop:
 	lb $t2, 0($a0)	# Aktuelles Zeichen
 	
-	beq $t2, $zero, end # Falls aktuelles Zeichen NULL beende Routine
+	beqz $t2, end # Falls aktuelles Zeichen NULL beende Routine
 	blt $t2, $t0, stl_next	 # Falls aktuelles Zeichen kleiner A gehe zum nächsten Zeichen
 	bgt $t2, $t1, stl_next	 # Falls aktuelles Zeichen größer  Z gehe zum nächsten Zeichen
 	
