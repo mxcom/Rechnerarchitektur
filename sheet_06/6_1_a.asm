@@ -6,38 +6,35 @@ str3:	.space 10
 	.byte 0xff
 	
 	.text
+	
 	la $a0, str1
 	jal strtolower
 	la $a0, str2
 	jal strtolower
 	
-	j end_prog
-
-# Routine: Großbuchstaben -> Kleinbuchstaben
+	# exit
+	li $v0, 10
+	syscall
+	
 strtolower:
-	li $t0, 'A'
-	li $t1, 'Z'
+	move $t1, $a0  	     # move address of string in $t1
 	
-stl_loop:
-	lb $t2, 0($a0)	# Aktuelles Zeichen
+loop:
+	lb $t3, ($t1)
+	beq $t3, 0, end
 	
-	beqz $t2, end # Falls aktuelles Zeichen NULL beende Routine
-	blt $t2, $t0, stl_next	 # Falls aktuelles Zeichen kleiner A gehe zum nächsten Zeichen
-	bgt $t2, $t1, stl_next	 # Falls aktuelles Zeichen größer  Z gehe zum nächsten Zeichen
+	sle $t4, $t3, 0x5A   # t4 = t3 <= 0x5A ? 1 : 0
+	sge $t5, $t3, 0x41   # t4 = t3 >= 0x5A ? 1 : 0
+	beq $t4, $t5, format # if character in ascii range of uppercase jump to format
+	addi $t1, $t1, 1     # increment by 1 to get to the next byte
+	j loop
 	
-	addiu $t2, $t2, 32 # Falls aktuelles Zeichen Großbuchstabe -> +32 um zum kleinen Zeichen zu komme
-	sb $t2, 0($a0)	   # Schreibe neuen/kleinen Buchstabe an Stelle in Data Section
-
-# Gehe zum nächsten Zeichen
-stl_next:
-	addiu $a0, $a0, 1
-	j stl_loop
-
-
-# Beendet Routine	
+format:
+	addi $t3, $t3, 0x20  # convert uppercase to lower case
+	sb $t3, ($t1)        # write byte lowercase byte to string
+	addi $t1, $t1, 1     # increment by 1 to get to the next byte
+	j loop
+	
 end:
 	jr $ra
-	
-# Program Ende durch Endlosschleife
-end_prog:
-	j end_prog
+
